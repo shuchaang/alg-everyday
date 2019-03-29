@@ -36,8 +36,8 @@ public class WaitNotify {
                 synchronized (queue){
                     if(queue.size()==MAX){
                         try {
-                            queue.wait();
                             System.out.println("满了 等待一下");
+                            queue.wait();
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -66,14 +66,15 @@ public class WaitNotify {
                 synchronized (queue){
                     if(queue.size()==0){
                         try {
-                            queue.wait();
                             System.out.println("没有元素了,等一会");
+                            queue.wait();
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
                     }else{
                         Integer poll = queue.poll();
                         System.out.println("消费了"+poll);
+                        queue.notifyAll();
                     }
                 }
             }
